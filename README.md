@@ -102,9 +102,9 @@ To run the project, execute the following command:
 
 👤 **Andrianariv David**
 
-- GitHub: [@andrianarivo](https://github.com/)
-- Twitter: [@andrianarivo](https://twitter.com/)
-- LinkedIn: [@andrianarivo](https://www.linkedin.com/in/)
+- GitHub: [@andrianarivo](https://github.com/andrianarivo)
+- Twitter: [@andrianarivo](https://twitter.com/dandrianarivo)
+- LinkedIn: [@andrianarivo](https://www.linkedin.com/in/andrianarivo)
 
 👤 **Racha Ould Babaali**
 
