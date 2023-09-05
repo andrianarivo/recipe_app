@@ -25,7 +25,7 @@
   <hr/>
 
   <% if @ingredients.nil? || @ingredients.empty? %>
-    <p>There are no ingredients yet, you can add an ingredients with the button above.</p>
+    <p>There are no ingredients yet, you can add ingredients if you're the owner of this recipe.</p>
   <%  else  %>
     <table class="table">
       <thead>
@@ -57,7 +57,7 @@
   <%  end %>
 
   <div>
-    <%= button_to "Delete this recipe", @recipe, method: :delete, class: 'btn btn-danger' %>
+    <%= button_to "Delete this recipe", @recipe, method: :delete, class: 'btn btn-danger' if can? :manage, @recipe %>
   </div>
 
 </div>
