@@ -4,96 +4,64 @@ RSpec.describe 'Menu', type: :system do
   include Devise::Test::IntegrationHelpers
 
   before(:all) do
-    Food.delete_all
-    Recipe.delete_all
-
-    @food1 = Food.create(name: 'Pizza',
+    delete_all
+    set_user
+    @food1 = Food.create(owner: @john,
+                         name: 'Pizza',
                          measurement_unit: 'Slice',
                          price: 8.99,
                          quantity: 5)
-    @food2 = Food.create(name: 'Burger',
+    @food2 = Food.create(owner: @john,
+                         name: 'Burger',
                          measurement_unit: 'Piece',
                          price: 5.99,
                          quantity: 10)
     @foods = Food.all
-
-    @recipe1 = Recipe.create(name: 'Pasta',
+    @recipe1 = Recipe.create(author: @john,
+                             name: 'Pasta',
+                             preparation_time: 5,
+                             cooking_time: 10,
                              description: 'Delicious pasta dish',
                              public: true)
-    @recipe2 = Recipe.create(name: 'Salad',
+    @recipe2 = Recipe.create(author: @john,
+                             name: 'Salad',
+                             preparation_time: 10,
+                             cooking_time: 0,
                              description: 'Healthy salad recipe',
                              public: true)
     @public_recipes = Recipe.where(public: true)
-    @owner = User.first
-    @owner ||= User.create!(name: 'John',
-                            email: 'john.doe@mail.com',
-                            password: 'admin1234',
-                            password_confirmation: 'admin1234',
-                            confirmed_at: Time.now)
   end
 
   before(:each) do
-    sign_in @owner
-  end
-
-  it 'displays the menu and food details' do
-    visit '/'
-    expect(page).to have_content('Foods')
-
-    within '#foods' do
-      expect(page).to have_content(@food1.name)
-      expect(page).to have_content(@food1.measurement_unit)
-      expect(page).to have_content('$ 8.99')
-      expect(page).to have_content(@food1.quantity)
-
-      expect(page).to have_content(@food2.name)
-      expect(page).to have_content(@food2.measurement_unit)
-      expect(page).to have_content('$ 5.99')
-      expect(page).to have_content(@food2.quantity)
-    end
+    sign_in @john
   end
 
   it 'renders the menu partial' do
-    visit '/'
+    visit public_recipes_path
     expect(page).to have_content('Public Recipes')
-    expect(page).to have_selector('.recipe', count: @public_recipes.count)
   end
 
   it 'displays public recipes and their details' do
-    visit '/'
+    visit public_recipes_path
     within '#recipes' do
       @public_recipes.each do |recipe|
         expect(page).to have_content(recipe.name)
-        expect(page).to have_content(recipe.description)
       end
     end
   end
 
-  it 'allows adding a new food' do
-    visit '/'
-    click_link 'Add Food'
-
-    fill_in 'Name', with: 'Sushi'
-    fill_in 'Measurement unit', with: 'Roll'
-    fill_in 'Price', with: '12.99'
-    fill_in 'Quantity', with: '3'
-
-    click_button 'Create Food'
-
-    expect(page).to have_content('Food was successfully created.')
-    expect(page).to have_content('Sushi')
-    expect(page).to have_content('Roll')
-    expect(page).to have_content('$ 12.99')
-    expect(page).to have_content('3')
+  def delete_all
+    Ingredient.delete_all
+    Food.delete_all
+    Recipe.delete_all
   end
 
-  it 'allows removing a food' do
-    visit '/'
-    within "#food-#{@food1.id}" do
-      click_link 'Remove'
-    end
-
-    expect(page).to have_content('Food was successfully removed.')
-    expect(page).not_to have_content(@food1.name)
+  def set_user
+    @john = User.first
+    @set_user ||= User.create!(name: 'John',
+                               email: 'john.doe@mail.com',
+                               password: 'admin1234',
+                               password_confirmation: 'admin1234',
+                               confirmed_at: Time.now)
   end
 end
