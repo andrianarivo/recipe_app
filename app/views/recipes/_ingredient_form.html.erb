@@ -1,0 +1,12 @@
+<div class="nested-form-wrapper" data-new-record="<%= form.object.new_record? %>">
+
+  <%= form.label :food_id %>
+  <%= form.number_field :food_id %>
+
+  <%= form.label :quantity %>
+  <%= form.number_field :quantity %>
+
+  <button type="button" data-action="ingredients#remove">Remove food</button>
+
+  <%= form.hidden_field :_destroy %>
+</div>

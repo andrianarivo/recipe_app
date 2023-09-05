@@ -1,4 +1,7 @@
-<%= form_with(model: recipe) do |form| %>
+<%= form_with(model: recipe, data: {
+  controller: "ingredients",
+  nested_form_wrapper_selector_value: '.nested-form-wrapper'
+}) do |form| %>
   <% if recipe.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
@@ -36,11 +39,19 @@
     <%= form.check_box :public %>
   </div>
 
-  <div>
-    <%= form.label :author_id, style: "display: block" %>
-    <%= form.text_field :author_id %>
-  </div>
+  <template data-ingredients-target="template">
+    <%= form.fields_for :ingredients, Ingredient.new, child_index: 'NEW_RECORD' do |field| %>
+      <%= render "ingredient_form", form: field %>
+    <% end %>
+  </template>
 
+  <%= form.fields_for :ingredients do |field| %>
+    <%= render "ingredient_form", form: field %>
+  <% end %>
+
+  <div data-ingredients-target="target"></div>
+
+  <button type="button" data-action="ingredients#add">Add Food</button>
   <div>
     <%= form.submit %>
   </div>
