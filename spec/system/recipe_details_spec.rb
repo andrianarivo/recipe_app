@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "RecipeDetails", type: :system do
+RSpec.describe 'RecipeDetails', type: :system do
   include Devise::Test::IntegrationHelpers
 
   before(:all) do
