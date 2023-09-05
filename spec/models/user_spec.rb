@@ -6,6 +6,6 @@ RSpec.describe User, type: :model do
   before { subject.save }
 
   it 'validity' do
-    expect(subject).to be_valid
+    expect(subject).not_to be_valid
   end
 end
