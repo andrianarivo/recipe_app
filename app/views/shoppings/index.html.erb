@@ -1,2 +1,20 @@
 <h1>Shoppings</h1>
 <p>List Shopping items</p>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Food</th>
+    <th scope="col">Quantity</th>
+    <th scope="col">Value</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%  @missing_ingredients.each do |ingredient | %>
+    <tr>
+      <th scope="row"><%=  ingredient.name  %></th>
+      <td><%= ingredient.quantity %></td>
+      <td><%=  ingredient.price  %></td>
+    </tr>
+  <%  end  %>
+  </tbody>
+</table>
