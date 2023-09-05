@@ -1,11 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'Recipes', type: :system do
+  include Devise::Test::IntegrationHelpers
+
   before(:all) do
     Ingredient.delete_all
     Recipe.delete_all
 
-    @author = User.first || User.create(name: 'John')
+    @author = User.first
+    @author ||= User.create!(name: 'John',
+                             email: 'john.doe@mail.com',
+                             password: 'admin1234',
+                             password_confirmation: 'admin1234',
+                             confirmed_at: Time.now)
     @recipe1 = Recipe.create(author: @author,
                              name: 'Perfect Chicken',
                              description: 'Description for Perfect Chicken',
@@ -17,6 +24,7 @@ RSpec.describe 'Recipes', type: :system do
                              preparation_time: 30,
                              cooking_time: 65)
     @recipes = Recipe.all
+    sign_in @author
   end
 
   it 'I can see the recipes titles' do
