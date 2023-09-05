@@ -13,7 +13,7 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @recipe.ingredients.build
-    @foods_map = Food.all.collect {|food| [food.name, food.id]}
+    @foods_map = Food.all.collect { |food| [food.name, food.id] }
   end
 
   # GET /recipes/1/edit
@@ -67,6 +67,7 @@ class RecipesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def recipe_params
-    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public, ingredients_attributes: [:id, :food_id, :quantity, :_destroy])
+    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public,
+                                   ingredients_attributes: %i[id food_id quantity _destroy])
   end
 end
