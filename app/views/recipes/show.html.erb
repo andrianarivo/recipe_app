@@ -40,8 +40,8 @@
       <%  @ingredients.each do |ingredient | %>
       <tr>
         <th scope="row"><%=  ingredient.name  %></th>
-        <td><%= ingredient.quantity %></td>
-        <td><%=  ingredient.price  %></td>
+        <td><%= ingredient.quantity %> <%= ingredient.measurement_unit %></td>
+        <td>$<%=  ingredient.price  %></td>
         <td>
           <% if can? :manage, @recipe %>
             <%= link_to 'Modify', edit_recipe_path(@recipe) %> |

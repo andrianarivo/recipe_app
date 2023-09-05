@@ -1,20 +1,27 @@
-<h1>Shoppings</h1>
-<p>List Shopping items</p>
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">Food</th>
-    <th scope="col">Quantity</th>
-    <th scope="col">Value</th>
-  </tr>
-  </thead>
-  <tbody>
-  <%  @missing_ingredients.each do |ingredient | %>
+<div class="container mt-5">
+  <h3>Shopping List</h3>
+
+  <div class="d-flex w-100 justify-content-between">
+    <p>Amount of food items to buy: <%= @total_item %></p>
+    <p>Total value of food needed: $<%= @total_amount %></p>
+  </div>
+
+  <table class="table">
+    <thead>
     <tr>
-      <th scope="row"><%=  ingredient.name  %></th>
-      <td><%= ingredient.quantity %></td>
-      <td><%=  ingredient.price  %></td>
+      <th scope="col">Food</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Value</th>
     </tr>
-  <%  end  %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <%  @ingredients.each do |ingredient | %>
+      <tr>
+        <th scope="row"><%=  ingredient.name  %></th>
+        <td><%= ingredient.quantity %> <%= ingredient.measurement_unit %></td>
+        <td>$<%=  ingredient.price  %></td>
+      </tr>
+    <%  end  %>
+    </tbody>
+  </table>
+</div>
