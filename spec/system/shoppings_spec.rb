@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Shoppings", type: :system do
+RSpec.describe 'Shoppings', type: :system do
   include Devise::Test::IntegrationHelpers
 
   before(:all) do
@@ -37,12 +37,12 @@ RSpec.describe "Shoppings", type: :system do
     sign_in @author
   end
 
-  it "I can see the total amount" do
+  it 'I can see the total amount' do
     visit shoppings_path(@recipe1)
-    expect(page).to have_content("$10.06")
+    expect(page).to have_content('$10.06')
   end
 
-  it "I can see the total item" do
+  it 'I can see the total item' do
     visit shoppings_path(@recipe1)
     expect(page).to have_content(2)
   end

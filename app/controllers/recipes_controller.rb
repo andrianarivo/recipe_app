@@ -14,7 +14,8 @@ class RecipesController < ApplicationController
 
   # GET /recipes/1 or /recipes/1.json
   def show
-    @ingredients = Recipe.find(params[:id]).foods.select("foods.id", "foods.name", "ingredients.quantity", "foods.measurement_unit", "foods.price")
+    @ingredients = Recipe.find(params[:id]).foods.select('foods.id', 'foods.name', 'ingredients.quantity',
+                                                         'foods.measurement_unit', 'foods.price')
   end
 
   # GET /recipes/new
