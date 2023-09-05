@@ -13,6 +13,7 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @recipe.ingredients.build
+    @foods_map = Food.all.collect {|food| [food.name, food.id]}
   end
 
   # GET /recipes/1/edit
