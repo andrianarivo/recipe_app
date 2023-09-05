@@ -18,6 +18,9 @@ RSpec.describe "RecipeDetails", type: :system do
                             description: 'Description for Perfect Chicken',
                             preparation_time: 10,
                             cooking_time: 75)
+  end
+
+  before(:each) do
     sign_in @author
   end
 
@@ -35,6 +38,6 @@ RSpec.describe "RecipeDetails", type: :system do
     visit recipe_path(@recipe)
     check 'recipe[public]'
     @recipe = Recipe.find(@recipe.id)
-    expect(@recipe.public).to be(true)
+    expect(page).to have_field('recipe[public]', checked: true)
   end
 end

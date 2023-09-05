@@ -24,6 +24,9 @@ RSpec.describe 'Recipes', type: :system do
                              preparation_time: 30,
                              cooking_time: 65)
     @recipes = Recipe.all
+  end
+
+  before(:each) do
     sign_in @author
   end
 
