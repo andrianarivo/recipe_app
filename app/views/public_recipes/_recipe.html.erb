@@ -1,0 +1,20 @@
+<%= link_to recipe_path(recipe), class: "card text-decoration-none m-5" do %>
+  <div id="<%= dom_id recipe %>" class="card-body d-flex flex-row justify-content-around">
+
+    <div class="column">
+        <h5 class="card-title"><%= recipe.name %></h5>
+
+        <p class="card-text">
+        <strong>By:</strong> <%= recipe.author.email %>
+        </p>
+    </div>
+    <div class="column" >
+      <p class="card-text">
+        <strong>Total food item:</strong> <%= recipe.foods.length %>
+      </p>
+      <p class="card-text">
+        <strong>Total price:</strong> <%= recipe.foods.sum(:price) %>
+      </p>
+    </div>
+  </div>
+<% end %>
