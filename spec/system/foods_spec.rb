@@ -15,14 +15,17 @@ RSpec.describe 'Menu', type: :system do
                          price: 5.99,
                          quantity: 10)
     @foods = Food.all
-  end
 
-  before(:each) do
-    sign_in User.create!(name: 'John',
+    @owner = User.first
+    @owner ||=  User.create!(name: 'John',
                          email: 'john.doe@mail.com',
                          password: 'admin1234',
                          password_confirmation: 'admin1234',
                          confirmed_at: Time.now)
+  end
+
+  before(:each) do
+    sign_in @owner
   end
 
   it 'displays the menu and food details' do
