@@ -14,7 +14,8 @@ class RecipesController < ApplicationController
 
   # GET /recipes/1 or /recipes/1.json
   def show
-    @ingredients = Recipe.find(params[:id]).foods
+    @ingredients = Recipe.find(params[:id]).foods.select('foods.id', 'foods.name', 'ingredients.quantity',
+                                                         'foods.measurement_unit', 'foods.price')
   end
 
   # GET /recipes/new
@@ -26,7 +27,6 @@ class RecipesController < ApplicationController
 
   # GET /recipes/1/edit
   def edit
-    @recipe.ingredients.build
     @foods_map = Food.all.collect { |food| [food.name, food.id] }
   end
 

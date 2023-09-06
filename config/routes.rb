@@ -12,6 +12,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: 'home#index'
-  get '/shoppings', to: 'shoppings#index', as: 'shoppings'
+  get '/shoppings/:id', to: 'shoppings#index', as: 'shoppings'
   delete '/ingredients/:id', to: 'recipes#destroy_ingredient', as: 'destroy_ingredient'
 end
