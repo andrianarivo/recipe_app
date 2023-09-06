@@ -17,11 +17,11 @@ RSpec.describe 'Menu', type: :system do
     @foods = Food.all
 
     @owner = User.first
-    @owner ||=  User.create!(name: 'John',
-                         email: 'john.doe@mail.com',
-                         password: 'admin1234',
-                         password_confirmation: 'admin1234',
-                         confirmed_at: Time.now)
+    @owner ||= User.create!(name: 'John',
+                            email: 'john.doe@mail.com',
+                            password: 'admin1234',
+                            password_confirmation: 'admin1234',
+                            confirmed_at: Time.now)
   end
 
   before(:each) do
