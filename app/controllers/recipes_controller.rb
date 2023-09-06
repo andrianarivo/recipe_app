@@ -13,7 +13,9 @@ class RecipesController < ApplicationController
   end
 
   # GET /recipes/1 or /recipes/1.json
-  def show; end
+  def show
+    @ingredients = Recipe.find(params[:id]).foods
+  end
 
   # GET /recipes/new
   def new
@@ -24,6 +26,7 @@ class RecipesController < ApplicationController
 
   # GET /recipes/1/edit
   def edit
+    @recipe.ingredients.build
     @foods_map = Food.all.collect { |food| [food.name, food.id] }
   end
 
@@ -64,6 +67,13 @@ class RecipesController < ApplicationController
       format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def destroy_ingredient
+    ingredient = Ingredient.find(params[:id])
+    recipe = ingredient.recipe
+    ingredient.destroy
+    redirect_to recipe_path(recipe), notice: 'Ingredient was successfully destroyed.'
   end
 
   private
