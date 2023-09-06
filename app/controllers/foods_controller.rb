@@ -1,6 +1,6 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: %i[show edit update destroy]
-
+  before_action :authenticate_user!
   # GET /foods or /foods.json
   def index
     @foods = Food.all
@@ -12,8 +12,6 @@ class FoodsController < ApplicationController
   # GET /foods/new
   def new
     @food = Food.new
-
-    @foods_map = Food.all.collect { |food| [food.name, food.id] }
   end
 
   # GET /foods/1/edit
@@ -50,7 +48,6 @@ class FoodsController < ApplicationController
 
   # DELETE /foods/1 or /foods/1.json
   def destroy
-    @food = Food.find(params[:id])
     @food.destroy
 
     respond_to do |format|
@@ -68,6 +65,6 @@ class FoodsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def food_params
-    params.require(:food).permit(:name, :measurement_unit, :price, :quantity, :owner_id)
+    params.require(:food).permit(:name, :measurement_unit, :price, :quantity)
   end
 end
