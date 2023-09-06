@@ -6,7 +6,11 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-@john = User.create(name: 'John')
+@john = User.create!(name: 'John',
+                     email: "john.doe@mail.com",
+                     password: "admin1234",
+                     password_confirmation: "admin1234",
+                     confirmed_at: Time.now)
 Recipe.create(author: @john,
               name: 'Perfect Chicken',
               description: 'Chicken stock, wine, onions, garlic, mushroom, cream, butter, herbs, lemon, and capers
