@@ -19,10 +19,10 @@ RSpec.describe 'Menu', type: :system do
 
   before(:each) do
     sign_in User.create!(name: 'John',
-                        email: 'john.doe@mail.com',
-                        password: 'admin1234',
-                        password_confirmation: 'admin1234',
-                        confirmed_at: Time.now)
+                         email: 'john.doe@mail.com',
+                         password: 'admin1234',
+                         password_confirmation: 'admin1234',
+                         confirmed_at: Time.now)
   end
 
   it 'displays the menu and food details' do
