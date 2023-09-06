@@ -1,0 +1,45 @@
+<% if user_signed_in? %>
+    <div class=" d-flex justify-content-end text_center">
+        <%= link_to 'Edit profile', edit_user_registration_path, class: 'navbar-link btn btn-secondary btn-sm m-3' %> 
+        <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete, confirm: 'Are you sure?', turbo_confirm: 'Are you sure?' }, class: 'navbar-link btn btn-warning btn-sm m-3'  %>
+    </div>
+    <h4 class="text_center text-success"> Hello <%= current_user.email %>!</h4>
+<% else %>
+  <h1 class="text_center">Welcome, Guest</h1>
+    <p class="text_center">
+        <%= link_to 'Login', new_user_session_path, class: 'navbar-link' %> |
+        <%= link_to 'Register', new_user_registration_path, class: 'navbar-link'  %>
+    </p>
+<% end %>
+
+<% if user_signed_in? %>
+    <div class="container ">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-9">
+                <h1 class="text-primary">My Recipes</h1>
+                <div class=" text-center m-3 d-flex justify-content-end">
+                <%= link_to 'Create new recipe', new_recipe_path, class: 'btn btn-success btn-sm ' %>
+                </div>
+                <div id="recipes">
+                <% @recipes.each do |recipe| %>
+                    <%= link_to recipe_path(recipe) do %>
+                    <%= render partial: 'recipes/recipe', locals: { recipe: recipe } %>
+                    <% end %>
+                <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center my-5">
+            <div class="col-md-9">
+                <h1 class="text-secondary">Public Recipes</h1>
+                <div id="recipes">
+                <% @public.each do |recipe| %>
+                    <%= link_to recipe_path(recipe) do %>
+                    <%= render partial: 'recipes/recipe', locals: { recipe: recipe } %>
+                    <% end %>
+                <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
