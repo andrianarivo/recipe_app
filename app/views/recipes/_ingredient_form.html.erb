@@ -8,7 +8,7 @@
 
     <div class="mb-3">
       <%= form.label :quantity, class: 'form-label' %>
-      <%= form.number_field :quantity, class: 'form-control' %>
+      <%= form.number_field :quantity,required: true, class: 'form-control' %>
     </div>
 
     <button type="button" data-action="ingredients#remove" class="btn btn-danger align-self-end">Remove Ingredient</button>
