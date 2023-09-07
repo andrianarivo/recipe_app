@@ -28,7 +28,7 @@ class ShoppingsController < ApplicationController
 
   def get_shopping_list(recipe)
     ingredients = recipe.foods.select('foods.id', 'foods.name', 'ingredients.quantity',
-                                       'foods.measurement_unit', 'foods.price')
+                                      'foods.measurement_unit', 'foods.price')
     foods = recipe.foods
     ingredients = ingredients.zip(foods)
     ingredients = ingredients.map do |entry|
