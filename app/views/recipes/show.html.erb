@@ -16,12 +16,12 @@
   <p>Cooking time: <b><%= @recipe.cooking_time %> min</b></p>
   <p><%= @recipe.description %></p>
 
-  <% if can? :manage, @recipe %>
     <div class="d-flex justify-content-between">
-      <%= link_to 'Generate shopping list', shoppings_path(@recipe), class: 'btn btn-primary' %>
-      <%= link_to "Add ingredients", edit_recipe_path(@recipe), class: 'btn btn-primary' %>
+      <%= link_to 'Generate shopping list', shopping_path(@recipe), class: 'btn btn-primary' %>
+      <% if can? :manage, @recipe %>
+        <%= link_to "Add ingredients", edit_recipe_path(@recipe), class: 'btn btn-primary' %>
+      <% end %>
     </div>
-  <% end %>
   <hr/>
 
   <% if @ingredients.nil? || @ingredients.empty? %>

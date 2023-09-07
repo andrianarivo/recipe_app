@@ -3,9 +3,33 @@ class ShoppingsController < ApplicationController
 
   def index
     # list all the shopping lists
-    ingredients = Recipe.find(params[:id]).foods.select('foods.id', 'foods.name', 'ingredients.quantity',
-                                                        'foods.measurement_unit', 'foods.price')
-    foods = Recipe.find(params[:id]).foods
+    @recipe = Recipe.find(params[:id])
+    @ingredients = get_shopping_list(@recipe)
+    @total_amount = @ingredients.reduce(0) do |acc, item|
+      acc + item.price
+    end
+    @total_item = @ingredients.length
+  end
+
+  def all
+    recipes = Recipe.all
+    @ingredients = []
+    recipes.each do |recipe|
+      @ingredients << get_shopping_list(recipe)
+    end
+    @ingredients.flatten!
+    @total_amount = @ingredients.reduce(0) do |acc, item|
+      acc + item.price
+    end
+    @total_item = @ingredients.length
+  end
+
+  private
+
+  def get_shopping_list(recipe)
+    ingredients = recipe.foods.select('foods.id', 'foods.name', 'ingredients.quantity',
+                                      'foods.measurement_unit', 'foods.price')
+    foods = recipe.foods
     ingredients = ingredients.zip(foods)
     ingredients = ingredients.map do |entry|
       Food.new(measurement_unit: entry[1].measurement_unit, name: entry[1].name,
@@ -14,13 +38,9 @@ class ShoppingsController < ApplicationController
     ingredients = ingredients.select do |ingredient|
       ingredient.quantity.negative?
     end
-    @ingredients = ingredients.map do |ingredient|
+    ingredients.map do |ingredient|
       ingredient.quantity = ingredient.quantity.abs
       ingredient
     end
-    @total_amount = @ingredients.reduce(0) do |acc, item|
-      acc + item.price
-    end
-    @total_item = @ingredients.length
   end
 end
