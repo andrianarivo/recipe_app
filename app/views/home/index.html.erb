@@ -1,0 +1,31 @@
+<% if user_signed_in? %>
+    <div class="container ">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-9">
+                <h1 class="text-primary">My Recipes</h1>
+                <div class=" text-center m-3 d-flex justify-content-end">
+                <%= link_to 'Create new recipe', new_recipe_path, class: 'btn btn-success btn-sm ' %>
+                </div>
+                <div id="recipes">
+                <% @recipes.each do |recipe| %>
+                    <%= link_to recipe_path(recipe) do %>
+                    <%= render partial: 'recipes/recipe', locals: { recipe: recipe } %>
+                    <% end %>
+                <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center my-5">
+            <div class="col-md-9">
+                <h1 class="text-secondary">Public Recipes</h1>
+                <div id="recipes">
+                <% @public.each do |recipe| %>
+                    <%= link_to recipe_path(recipe) do %>
+                    <%= render partial: 'recipes/recipe', locals: { recipe: recipe } %>
+                    <% end %>
+                <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>

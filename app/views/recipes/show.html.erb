@@ -1,0 +1,63 @@
+<div class="container">
+  <p style="color: green"><%= notice %></p>
+
+  <h3><%= @recipe.name %></h3>
+
+  <div class="d-flex justify-content-between">
+    <p>Preparation time: <b><%= @recipe.preparation_time %> min</b></p>
+    <%= form_with model: @recipe do |form| %>
+      <div class="form-check form-switch form-check-reverse">
+        <%= form.label :public, class: 'form-check-label' %>
+        <%= form.check_box :public, class: 'form-check-input', role: 'switch', onchange: "this.form.requestSubmit()", disabled: !can?(:manage, @recipe) %>
+      </div>
+    <% end %>
+  </div>
+
+  <p>Cooking time: <b><%= @recipe.cooking_time %> min</b></p>
+  <p><%= @recipe.description %></p>
+
+    <div class="d-flex justify-content-between">
+      <%= link_to 'Generate shopping list', shopping_path(@recipe), class: 'btn btn-primary' %>
+      <% if can? :manage, @recipe %>
+        <%= link_to "Add ingredients", edit_recipe_path(@recipe), class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  <hr/>
+
+  <% if @ingredients.nil? || @ingredients.empty? %>
+    <p>There are no ingredients yet, you can add ingredients if you're the owner of this recipe.</p>
+  <%  else  %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Food</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Value</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%  @ingredients.each do |ingredient | %>
+      <tr>
+        <th scope="row"><%=  ingredient.name  %></th>
+        <td><%= ingredient.quantity %> <%= ingredient.measurement_unit %></td>
+        <td>$<%=  ingredient.price  %></td>
+        <td>
+          <% if can? :manage, @recipe %>
+            <%= link_to 'Modify', edit_recipe_path(@recipe) %> |
+            <%=  link_to 'Remove', destroy_ingredient_path(ingredient), data: { turbo_method: :delete}  %>
+          <% else %>
+            N/A
+          <% end %>
+        </td>
+      </tr>
+      <%  end  %>
+      </tbody>
+      </table>
+  <%  end %>
+
+  <div>
+    <%= button_to "Delete this recipe", @recipe, method: :delete, class: 'btn btn-danger' if can? :manage, @recipe %>
+  </div>
+
+</div>

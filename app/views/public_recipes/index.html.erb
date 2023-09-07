@@ -1,0 +1,10 @@
+<%= render "menu/menu" %>
+<h1 class='text-center text-info my-3 mx-5'>Public Recipes</h1>
+
+<div id="recipes">
+  <% @public.each do |recipe| %>
+    <%= link_to recipe_path(recipe) do %>
+      <%= render partial: 'recipe', locals: { recipe: recipe } %>
+    <% end %>
+  <% end %>
+</div>
