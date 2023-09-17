@@ -42,8 +42,11 @@
 - **[User Authentication]**
 - **[View Food and Recipe]**
 
+<!-- LIVE DEMO -->
 
+## 🚀 Live Demo <a name="live-demo"></a>
 
+- [Live Demo Link](https://recipe-app-ecva.onrender.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
